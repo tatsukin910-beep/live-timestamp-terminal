@@ -1,0 +1,20 @@
+{
+  "name": "Live Timestamp Terminal",
+  "short_name": "Timestamp",
+  "description": "JST固定のオフライン対応ライブタイムスタンプコピーツール",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "lang": "ja"
+}
