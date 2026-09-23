@@ -8,78 +8,64 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <style>
-:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#38bdf8;--accent-h:#0284c7;--ok:#4ade80;--mono:Consolas,"Courier New",monospace}
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#38bdf8;--ok:#4ade80;--mono:Consolas,"Courier New",monospace}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(circle at top,rgba(56,189,248,.08),transparent 42%),var(--bg);color:var(--text);font-family:"Segoe UI","Yu Gothic UI",Meiryo,sans-serif;min-height:100vh;padding:28px 20px;display:flex;justify-content:center}
-.container{width:100%;max-width:760px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 28px 20px}
-.header{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:16px}
+body{background:#0f172a;color:var(--text);font-family:"Segoe UI","Yu Gothic UI",Meiryo,sans-serif;min-height:100vh;padding:28px 20px;display:flex;justify-content:center}
+.container{width:100%;max-width:760px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.header{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:16px}
 h1{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--muted)}
 .status{font-family:var(--mono);font-size:11px;color:var(--ok)}
-.day{color:var(--accent);font-weight:600;font-size:15px}
+.day{color:var(--accent);font-weight:600}
 .date{font-family:var(--mono);font-size:20px;font-weight:700;margin:4px 0}
-.time{font-family:var(--mono);font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:8px}
-.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.badge{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:3px 10px}
+.time{font-family:var(--mono);font-size:44px;font-weight:700;margin-bottom:8px}
+.badge{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:3px 10px;margin-right:6px}
 label{display:block;font-size:12px;color:var(--muted);margin:8px 0 6px}
-select,.prefix{width:100%;padding:9px 11px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:13px}
+select,.prefix{width:100%;padding:9px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;font-family:var(--mono)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.preview{margin:12px 0;padding:10px;background:rgba(15,23,42,.55);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:13px;color:var(--accent);word-break:break-word}
+.preview{margin:12px 0;padding:10px;border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:13px;color:var(--accent);word-break:break-word}
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .btn{padding:11px;border:none;border-radius:6px;font-weight:700;cursor:pointer}
 .btn-main{background:var(--accent);color:#0f172a}
-.btn-alt{background:#334155;color:var(--text);border:1px solid var(--border)}
+.btn-alt{background:#334155;color:var(--text)}
 .delta{font-family:var(--mono);font-size:12px;color:var(--ok);margin-top:28px}
-.history{background:rgba(15,23,42,.65);border:1px dashed var(--border);border-radius:6px;padding:12px}
+.history{border:1px dashed var(--border);border-radius:6px;padding:12px}
 .history-head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:8px}
 .toast{color:var(--ok);font-weight:700;opacity:0}
 .toast.show{opacity:1}
 .history-list{list-style:none;max-height:220px;overflow:auto}
-.history-list li{font-family:var(--mono);font-size:12px;padding:6px 4px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;gap:8px;cursor:pointer}
-.gap{color:var(--muted);white-space:nowrap}
-.empty{color:var(--muted);font-size:13px}
+.history-list li{font-family:var(--mono);font-size:12px;padding:6px 0;border-bottom:1px solid #334155;display:flex;justify-content:space-between;cursor:pointer}
+.gap{color:var(--muted)}
+.empty{color:var(--muted)}
 .footer{margin-top:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:#64748b}
-kbd{font-family:var(--mono);font-size:11px;border:1px solid #0f172a;border-radius:4px;padding:0 4px}
 #fallback{position:fixed;left:-9999px}
-@media(max-width:640px){.row2,.btns{grid-template-columns:1fr}.time{font-size:32px}}
-</style>
-</head>
-<body>
+</style></head><body>
 <div class="container">
 <div class="header"><h1>LIVE TIMESTAMP TERMINAL</h1><div class="status">JST STRICT · LOG</div></div>
 <div class="day" id="display-day">---</div>
 <div class="date" id="display-date">---</div>
 <div class="time" id="display-time">00:00:00</div>
-<div class="meta"><span class="badge">Asia/Tokyo UTC+09:00</span><span class="badge" id="session-badge">SESSION 00:00:00 · 0</span></div>
+<div><span class="badge">Asia/Tokyo UTC+09:00</span><span class="badge" id="session-badge">SESSION 00:00:00 · 0</span></div>
 <label for="format-select">Primary format</label>
 <select id="format-select">
-<option value="custom24">24h DD-Mon-YYYY HH:MM:SS JST</option>
-<option value="custom">12h AM/PM</option>
+<option value="custom24">24h JST</option>
+<option value="custom">12h</option>
 <option value="long">Long</option>
 <option value="us">US</option>
-<option value="iso">ISO 8601</option>
+<option value="iso">ISO</option>
 <option value="datetime">DateTime</option>
 <option value="japanese">Japanese</option>
 <option value="unix">Unix</option>
 </select>
-<div class="row2">
-<div><label for="prefix-input">Prefix</label><input class="prefix" id="prefix-input" maxlength="40" placeholder="[observation]"></div>
-<div class="delta" id="delta-line">LAST + --:--:--</div>
-</div>
+<div class="row2"><div><label for="prefix-input">Prefix</label><input class="prefix" id="prefix-input" maxlength="40" placeholder="[obs]"></div><div class="delta" id="delta-line">LAST + --:--:--</div></div>
 <div class="preview" id="live-preview">---</div>
-<div class="btns">
-<button class="btn btn-main" id="copy-btn" type="button">Copy now <kbd>C</kbd></button>
-<button class="btn btn-alt" id="bundle-btn" type="button">JP+ISO+Unix <kbd>B</kbd></button>
-</div>
+<div class="btns"><button class="btn btn-main" id="copy-btn" type="button">Copy (C)</button><button class="btn btn-alt" id="bundle-btn" type="button">JP+ISO+Unix (B)</button></div>
 <div class="history">
 <div class="history-head"><span>HISTORY <span id="hist-count">0</span>/20</span><span class="toast" id="status-toast">COPIED</span></div>
 <ul class="history-list" id="history-list"></ul>
 <p class="empty" id="history-empty">No captures yet</p>
-<div class="btns">
-<button class="btn btn-alt" id="export-btn" type="button">Save TXT</button>
-<button class="btn btn-alt" id="clear-btn" type="button">Clear <kbd>Esc</kbd></button>
+<div class="btns"><button class="btn btn-alt" id="export-btn" type="button">Save TXT</button><button class="btn btn-alt" id="clear-btn" type="button">Clear (Esc)</button></div>
 </div>
-</div>
-<div class="footer"><span>OFFLINE</span><span>C copy · B bundle · Esc clear</span></div>
+<div class="footer"><span>OFFLINE</span><span>C / B / Esc</span></div>
 </div>
 <textarea id="fallback" readonly></textarea>
 <script>
@@ -91,8 +77,8 @@ var DE=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 var DJ=["日","月","火","水","木","金","土"];
 var VALID={custom:1,custom24:1,long:1,us:1,iso:1,datetime:1,japanese:1,unix:1};
 var history=[],clockTimer=null,toastTimer=null,lastKey="",sessionStart=Date.now();
-var el={day:$("display-day"),date:$("display-date"),time:$("display-time"),sel:$("format-select"),preview:$("live-preview"),copy:$("copy-btn"),bundle:$("bundle-btn"),list:$("history-list"),empty:$("history-empty"),toast:$("status-toast"),clear:$("clear-btn"),exp:$("export-btn"),prefix:$("prefix-input"),delta:$("delta-line"),session:$("session-badge"),count:$("hist-count"),fb:$("fallback")};
 function $(id){return document.getElementById(id);}
+var el={day:$("display-day"),date:$("display-date"),time:$("display-time"),sel:$("format-select"),preview:$("live-preview"),copy:$("copy-btn"),bundle:$("bundle-btn"),list:$("history-list"),empty:$("history-empty"),toast:$("status-toast"),clear:$("clear-btn"),exp:$("export-btn"),prefix:$("prefix-input"),delta:$("delta-line"),session:$("session-badge"),count:$("hist-count"),fb:$("fallback")};
 function p2(n){return String(n).padStart(2,"0");}
 function dur(ms){if(ms<0)ms=0;var s=Math.floor(ms/1000);return p2(Math.floor(s/3600))+":"+p2(Math.floor((s%3600)/60))+":"+p2(s%60);}
 function getJST(d){
@@ -126,7 +112,7 @@ function loadH(){try{var a=JSON.parse(localStorage.getItem("ltt.history.v1")||"[
 function renderH(){
  el.list.innerHTML="";el.count.textContent=String(history.length);
  if(!history.length){el.empty.style.display="block";return;}el.empty.style.display="none";
- history.forEach(function(item,idx){
+ history.forEach(function(item){
   var li=document.createElement("li");
   var a=document.createElement("span");a.textContent=item.primary;
   var b=document.createElement("span");b.className="gap";b.textContent=item.gap||"";
@@ -139,7 +125,7 @@ function capture(kind){
  var j=getJST(new Date());
  var primary=pre(fmt(j,sel()));
  var copy=kind==="bundle"?bundle(j):primary;
- var gap=history[0]?("+"+dur(j.ms-history[0].ms)):+"+00:00:00";
+ var gap=history[0]?("+"+dur(j.ms-history[0].ms)):":00:00:00".replace(":","+");
  history.unshift({ms:j.ms,primary:primary,copyText:copy,gap:gap});
  if(history.length>20)history=history.slice(0,20);
  saveH();renderH();
@@ -166,11 +152,8 @@ document.addEventListener("keydown",function(ev){
  if((ev.key==="c"||ev.key==="C")&&!ev.ctrlKey){ev.preventDefault();capture("single");}
  if((ev.key==="b"||ev.key==="B")&&!ev.ctrlKey){ev.preventDefault();capture("bundle");}
 });
-document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){lastKey="";tick();loop();}});
 try{var sv=localStorage.getItem("ltt.format.v2");el.sel.value=(sv&&VALID[sv])?sv:"custom24";el.prefix.value=localStorage.getItem("ltt.prefix.v1")||"";}catch(e){}
 loadH();renderH();tick();loop();
 if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){});});
 })();
-</script>
-</body>
-</html>
+</script></body></html>
