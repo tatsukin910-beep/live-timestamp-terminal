@@ -3,15 +3,30 @@
 JST（Asia/Tokyo, UTC+09:00）固定のオフライン・タイムスタンプコピーツール。  
 PCブラウザでの利用を前提に、時刻計算・UI・ショートカットを厳密化している。
 
-リポジトリ: https://github.com/tatsukin910-beep/live-timestamp-terminal
+- リポジトリ: https://github.com/tatsukin910-beep/live-timestamp-terminal
+- Pages: https://tatsukin910-beep.github.io/live-timestamp-terminal/
+
+## GitHub Actions 自動デプロイ
+
+`main` への push、または Actions 画面の Run workflow で GitHub Pages に静的サイトを配信する。
+
+ワークフロー: `.github/workflows/deploy-pages.yml`
+
+### 最初だけ手動で確認する項目
+
+1. リポジトリ → **Settings** → **Pages**
+2. **Source** を **GitHub Actions** にする（Deploy from a branch のままだと Actions 配信が失敗する）
+3. **Actions** タブで `Deploy GitHub Pages` が緑になることを確認
+4. 公開URL: https://tatsukin910-beep.github.io/live-timestamp-terminal/
+
+キャッシュされた古い `sw.js` が残っている場合はブラウザでスーパーリロード（Ctrl+F5）する。
 
 ## 仕様（PC / JST STRICT）
 
 - 表示時計は **24時間制**（`HH:MM:SS`）。端末のタイムゾーン設定は使わない。
 - 時刻パーツは `Intl.DateTimeFormat` + `timeZone: "Asia/Tokyo"` + `hourCycle: "h23"`。
 - Unix のみ UTC epoch 秒（絶対時刻）。壁時計ではない。
-- フォーマット選択の option 文言は **固定**。毎秒更新するのはプレビュー行のみ。  
-  （旧実装は option を毎秒書き換え、PC でドロップダウン操作中に選択肢が崩れる）
+- フォーマット選択の option 文言は **固定**。毎秒更新するのはプレビュー行のみ。
 - 選択フォーマットは `localStorage` キー `ltt.format.v2` に保存。
 - コピー対象はボタン押下（またはショートカット）**瞬間**の JST。
 
@@ -36,7 +51,7 @@ PCブラウザでの利用を前提に、時刻計算・UI・ショートカッ�
 ## 使い方（PC）
 
 1. GitHub Pages で開く、またはローカルで静的配信する。
-2. `file://` では Clipboard API と Service Worker が制限される。コピーはフォールバックで動く場合があるが、確認は http(s) で行う。
+2. `file://` では Clipboard API と Service Worker が制限される。確認は http(s) で行う。
 3. フォーマットを選び、「今の時刻をコピー」または `C`。
 
 ローカル確認例:
@@ -46,22 +61,6 @@ python -m http.server 8080
 ```
 
 `http://127.0.0.1:8080/` を開く。
-
-## 修正内容（この版）
-
-- メイン時計を 12h+AM/PM から 24h に変更
-- option テキストのライブ上書きを廃止（PC の select 安定性）
-- `hourCycle: "h23"` で hour=24 を抑制
-- タブ復帰時に時計を再同期
-- 同一秒の重複描画を抑制
-- PC幅（720px）、等幅数字、キーボード操作
-- `user-select: none` を廃止（PCで文字列を選べるようにした）
-- Service Worker キャッシュ名を `live-timestamp-v2` に更新
-
-## 技術
-
-- 単一 HTML + 小さな `sw.js` / `manifest.json`
-- 外部 CDN・解析なし
 
 ## License
 
